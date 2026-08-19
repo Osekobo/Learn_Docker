@@ -1,0 +1,6 @@
+taskkill /F /IM "Docker Desktop.exe" 2>$null
+taskkill /F /IM "com.docker.backend.exe" 2>$null
+Start-Process "C:\Program Files\Docker\Docker\Docker Desktop.exe" -Verb RunAs
+
+docker run -p 8000:8000 -v "$(pwd):/app" my-fastapi-app
+Docker init
