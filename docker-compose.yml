@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: ./Backend
+    container_name: fastapi_backend
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        REACT_APP_API_URL: http://localhost:8000
+    container_name: react_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend  # <--- This MUST match the service name above (lowercase)
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
