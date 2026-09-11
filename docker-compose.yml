@@ -2,11 +2,25 @@ services:
   backend:
     build: ./Backend
     container_name: fastapi_backend
+    # Now that Nginx is proxying everything, you no longer need to expose port 8000 to the outside world.
     ports:
       - "8000:8000"
     networks:
       - app-network
     restart: unless-stopped
+
+    # frontend:
+    # build:
+    #   context: ./frontend
+    #   # Remove the args block entirely
+    # container_name: react_frontend
+    # ports:
+    #   - "3000:80"
+    # depends_on:
+    #   - backend
+    # networks:
+    #   - app-network
+    # restart: unless-stopped
 
   frontend:
     build:
@@ -17,7 +31,7 @@ services:
     ports:
       - "3000:80"
     depends_on:
-      - backend  # <--- This MUST match the service name above (lowercase)
+      - backend # <--- This MUST match the service name above (lowercase)
     networks:
       - app-network
     restart: unless-stopped

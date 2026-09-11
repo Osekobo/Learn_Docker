@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Marq Kicks API")
 
+# remove cors on nginx setup
 # CORS setup - allows your React app to talk to this backend
 app.add_middleware(
     CORSMiddleware,
